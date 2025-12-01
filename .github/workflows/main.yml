@@ -1,0 +1,39 @@
+name: Testes do Fibonacci
+
+# Define em quais eventos esta action será executada
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  # Permite rodar o workflow manualmente na aba "Actions"
+  workflow_dispatch:
+
+jobs:
+  build:
+    # Define o ambiente onde a Action será executada
+    runs-on: ubuntu-latest
+
+    strategy:
+      # Testa a Action em diferentes versões do Node.js
+      matrix:
+        node-version: [18.x, 20.x]
+        
+    steps:
+      # Passo 1: Faz o checkout do código
+      - uses: actions/checkout@v4
+        name: Checkout do Repositório
+
+      # Passo 2: Configura a versão do Node.js
+      - name: Usa Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          
+      # Passo 3: Instala as dependências (baseado no package.json)
+      - name: Instala Dependências
+        run: npm install
+
+      # Passo 4: Roda os testes (usando o script "test": "jest" do package.json)
+      - name: Roda Testes
+        run: npm test
