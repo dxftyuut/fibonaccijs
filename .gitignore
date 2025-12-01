@@ -1,0 +1,17 @@
+# Dependências
+/node_modules
+/.pnp
+.pnp.js
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Variáveis de ambiente
+.env
+.env.test
+
+# Cobertura de testes
+/coverage
